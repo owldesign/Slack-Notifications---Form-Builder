@@ -54,7 +54,7 @@ class FormBuilderSlackNotificationsPlugin extends BasePlugin
      */
     public function getDocumentationUrl()
     {
-        return 'https://github.com/owldesign/slacknotifications/blob/master/README.md';
+        return 'https://github.com/owldesign/Slack-Notifications---Form-Builder';
     }
 
     /**
@@ -62,7 +62,7 @@ class FormBuilderSlackNotificationsPlugin extends BasePlugin
      */
     public function getReleaseFeedUrl()
     {
-        return 'https://raw.githubusercontent.com/owldesign/slacknotifications/master/releases.json';
+        return 'https://raw.githubusercontent.com/owldesign/Slack-Notifications---Form-Builder/master/releases.json';
     }
 
     /**
