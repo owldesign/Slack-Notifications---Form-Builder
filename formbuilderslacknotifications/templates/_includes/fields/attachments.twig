@@ -1,0 +1,30 @@
+{% set name = 'notifications[slack]['~ item ~'][attachments]' %}
+{% set enabled = attribute(form.notifications.slack, item).attachments is defined and attribute(form.notifications.slack, item).attachments ? true : false %}
+
+{% set container = {
+    title: 'Include Submission?' |t,
+    info: 'Include submission data in the notification?' |t,
+    icon: null,
+    toggle: true,
+    class: null,
+    id: null
+} %}
+
+{% set inputs = {
+    0: {
+        type: 'checkbox',
+        name: name,
+        value: '1',
+        checked: enabled,
+        class: 'hidden',
+        id: null
+    },
+} %}
+
+{% set modal = null %}
+
+{{ components.optionItem(
+    container,
+    modal,
+    inputs
+) }}

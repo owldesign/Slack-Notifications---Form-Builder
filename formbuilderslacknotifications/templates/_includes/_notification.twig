@@ -1,0 +1,51 @@
+{% set plugin = craft.formBuilderSlackNotifications.getPluginSettings() %}
+
+{% import "formbuilder/_includes/_components" as components %}
+
+{% set item = key is defined ? key : 'new' ~ index %}
+{% set enabled = attribute(form.notifications.slack, item).enabled is defined and attribute(form.notifications.slack, item).enabled ? true : false %}
+{% set collapsed = attribute(form.settings.sections.notifications.slack, item).collapsed is defined and attribute(form.settings.sections.notifications.slack, item).collapsed ? true : false %}
+
+<section class="cmp-tout section-collapsible"{{ collapsed ? 'data-collapsed' }}>
+    <input type="hidden" name="settings[sections][notifications][slack][{{ item }}][collapsed]" value="0" />
+    <input type="checkbox" value="1" name="settings[sections][notifications][slack][{{ item }}][collapsed]" class="section-toggle hidden" />
+
+    <header class="theme-moss">
+        <div class="titlebar">
+            <span class="tout-title">{{ "Slack Notification" |t }}</span>
+            {% if plugin and plugin.webhookUrl == '' %}
+                <div class="section-status">
+                    {{ "Missing Webhook URL. Update plugin settings." |t }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="actions">
+            {% if enabled %}
+                <div class="status on" title="Enabled"></div>
+            {% else %}
+                <div class="status off" title="Disabled"></div>
+            {% endif %}
+
+            <a class="icons collapser bodytoggle" title="Collapse" role="combobox" tabindex="0"></a>
+            <a class="icons settings last" title="Settings" role="combobox" tabindex="0"></a>
+
+            <div class="menu">
+                <ul class="padded">
+                    <li {% if not enabled %}class="hidden"{% endif %}><a data-action="disable"><span class="status off"></span>{{ "Disable"|t }}</a></li>
+                    <li {% if enabled %}class="hidden"{% endif %}><a data-action="enable"><span class="status enabled"></span>{{ "Enable"|t }}</a></li>
+                    <li><a data-action="delete">{{ "Delete"|t }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="body notification-fields theme-moss">
+        <input type="hidden" name="notifications[slack][{{ item }}][enabled]" value="0" />
+        <input type="checkbox" name="notifications[slack][{{ item }}][enabled]" value="1" class="enable-notification-section hidden" {{ enabled ? 'checked' }} />
+
+        {% include 'formbuilderslacknotifications/_includes/fields/text' ignore missing %}
+        {% include 'formbuilderslacknotifications/_includes/fields/channel' ignore missing %}
+        {% include 'formbuilderslacknotifications/_includes/fields/attachments' ignore missing %}
+        {% include 'formbuilderslacknotifications/_includes/fields/links' ignore missing %}
+    </div>
+</section>

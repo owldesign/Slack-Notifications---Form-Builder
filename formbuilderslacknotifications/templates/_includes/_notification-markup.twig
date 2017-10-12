@@ -1,0 +1,39 @@
+{% import "formbuilder/_includes/_components" as components %}
+
+{% set item = key is defined ? key : 'new' ~ index %}
+
+<section class="cmp-tout section-collapsible slack-notification-section" id="slack-notification-{{ index }}">
+    <input type="hidden" name="settings[sections][notifications][slack][new{{ index }}][collapsed]" value="0">
+    <input type="checkbox" name="settings[sections][notifications][slack][new{{ index }}][collapsed]" value="1" class="section-toggle hidden">
+
+    <header class="theme-moss">
+        <div class="titlebar">
+            <span class="tout-title">{{ "Slack Notification" |t }}</span>
+            <div class="preview"></div>
+        </div>
+        <div class="actions">
+            <div class="status off" title="Disabled"></div>
+
+            <a class="icons collapser bodytoggle" title="Collapse" role="combobox" tabindex="0"></a>
+            <a class="icons settings last" title="Settings" role="combobox" tabindex="0"></a>
+
+            <div class="menu">
+                <ul class="padded">
+                    <li class="hidden"><a data-action="disable"><span class="status off"></span>{{ "Disable"|t }}</a></li>
+                    <li><a data-action="enable"><span class="status enabled"></span>{{ "Enable"|t }}</a></li>
+                    <li><a data-action="delete">{{ "Delete"|t }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="body notification-fields">
+        <input type="hidden" name="notifications[slack][new{{ index }}][enabled]" value="0">
+        <input type="checkbox" name="notifications[slack][new{{ index }}][enabled]" value="1" class="enable-notification-section hidden">
+
+        {% include 'formbuilderslacknotifications/_includes/fields/text' ignore missing %}
+        {% include 'formbuilderslacknotifications/_includes/fields/channel' ignore missing %}
+        {% include 'formbuilderslacknotifications/_includes/fields/attachments' ignore missing %}
+        {% include 'formbuilderslacknotifications/_includes/fields/links' ignore missing %}
+    </div>
+</section>

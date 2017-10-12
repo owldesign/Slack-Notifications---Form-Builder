@@ -1,0 +1,30 @@
+{% set name = 'notifications[slack]['~ item ~'][link]' %}
+{% set enabled = attribute(form.notifications.slack, item).link is defined and attribute(form.notifications.slack, item).link ? true : false %}
+
+{% set container = {
+    title: 'Include Link To Submission' |t,
+    info: 'Will include link to submission if save to database enabled.' |t,
+    icon: null,
+    toggle: true,
+    class: null,
+    id: null
+} %}
+
+{% set inputs = {
+    0: {
+        type: 'checkbox',
+        name: name,
+        value: '1',
+        checked: enabled,
+        class: 'hidden',
+        id: null
+    },
+} %}
+
+{% set modal = null %}
+
+{{ components.optionItem(
+    container,
+    modal,
+    inputs
+) }}

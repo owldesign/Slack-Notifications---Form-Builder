@@ -1,0 +1,5 @@
+{
+    "require": {
+        "owldesign/slack-client": "1.*"
+    }
+}
